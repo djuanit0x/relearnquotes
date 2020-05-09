@@ -24,7 +24,7 @@ const IndexPage = () => {
   useEffect(() => {
     if (status !== "loading") return
     axios
-      .post(`/.netlify/functions/get-all-quotes-by-category`, { category })
+      .post(`/api/get-all-quotes-by-category`, { category })
       .then(result => {
         if (result.status !== 200) {
           console.error("Unable to load the quotes")

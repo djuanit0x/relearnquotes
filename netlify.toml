@@ -7,3 +7,14 @@
 #   from = "/app/*"
 #   to = "/index.html"
 #   status = 200
+
+[[redirects]]
+  from = "api/*"
+  to = ".netlify/functions/:splat"
+  status = 200
+
+# [[redirects]]
+#   from = "https://relearnquotes.netlify.app/"
+#   to = "https://relearnquotes.com"
+#   status = 301
+#   force = true
