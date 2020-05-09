@@ -31,8 +31,9 @@ const IndexPage = () => {
           console.error("Unable to load the quotes")
           return
         }
-
-        setQuotes(result.data.quotes.data)
+        if (result.data) {
+          setQuotes(result.data.quotes.data)
+        }
         setStatus("loaded")
       })
 
