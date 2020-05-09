@@ -3,6 +3,7 @@ type Quote {
   content: String! # tweetId for a tweet type quote, otherwise the actual content of a quote
   author: String! # tweetId for a tweet type quote
   source: String! # tweetId for a tweet type quote
+  isFeature: Boolean!
   category: String!
 }
 
