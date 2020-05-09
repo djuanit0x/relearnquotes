@@ -27,11 +27,17 @@ const Header = () => {
       />
       <HeaderButtonsWrapper>
         <ShareButton>
-          <img src={shareBtnImg} alt="shareBtn" />
+          <a href="https://twitter.com/intent/tweet">
+            <img src={shareBtnImg} alt="shareBtn" />
+          </a>
         </ShareButton>
 
-        <FeedbackButton>feedback</FeedbackButton>
-        <SubmitButton>submit</SubmitButton>
+        <FeedbackButton>
+          <a href="https://djuanito.typeform.com/to/QfWHH8">feedback</a>
+        </FeedbackButton>
+        <SubmitButton>
+          <a href="https://airtable.com/shr6Oq93At7eoYmuG">submit</a>
+        </SubmitButton>
       </HeaderButtonsWrapper>
     </HeaderContainer>
   )
@@ -83,6 +89,19 @@ const FeedbackButton = styled.div`
   border: 1px solid #000000;
   margin-top: 1rem;
   margin-right: 1rem;
+
+  &:active {
+    transform: translateY(1px);
+  }
+
+  & a {
+    color: #000000;
+    text-decoration: none;
+  }
+
+  & a:visited {
+    color: #000000;
+  }
 `
 
 const SubmitButton = styled.div`
@@ -95,8 +114,20 @@ const SubmitButton = styled.div`
   background: #000000;
   margin-right: 1rem;
   margin-top: 1rem;
-  color: #ffffff;
   line-height: 17px;
+
+  &:active {
+    transform: translateY(1px);
+  }
+
+  & a {
+    color: #ffffff;
+    text-decoration: none;
+  }
+
+  & a:visited {
+    color: #ffffff;
+  }
 `
 Header.propTypes = {
   siteTitle: PropTypes.string,
