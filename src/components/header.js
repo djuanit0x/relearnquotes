@@ -21,7 +21,10 @@ const Header = () => {
 
   return (
     <HeaderContainer>
-      <Img fixed={data.logoImage.childImageSharp.fixed} />
+      <Img
+        style={{ marginLeft: ".375rem" }}
+        fixed={data.logoImage.childImageSharp.fixed}
+      />
       <HeaderButtonsWrapper>
         <ShareButton>
           <img src={shareBtnImg} alt="shareBtn" />
@@ -53,7 +56,7 @@ const HeaderContainer = styled.header`
 
 const HeaderButtonsWrapper = styled.div`
   font-size: 0.875rem;
-  margin-bottom: .8rem;
+  margin-bottom: 0.8rem;
   display: flex;
   justify-content: flex-end;
   width: 100%;

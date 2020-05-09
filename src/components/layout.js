@@ -75,6 +75,7 @@ const FooterWrapper = styled.footer`
 
 const FooterMetaDataInfo = styled.div`
   display: flex;
+  color: black;
   align-items: center;
   flex-direction: column;
 
