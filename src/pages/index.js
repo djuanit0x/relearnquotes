@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react"
-import { Link } from "gatsby"
 import axios from "axios"
 import styled from "styled-components"
 import Layout from "../components/layout"
@@ -16,7 +15,9 @@ const IndexPage = () => {
   const [status, setStatus] = useState("loading")
 
   const handleClick = e => {
+    setQuotes([])
     setStatus("loading")
+
     setCategory(e.target.innerText.toUpperCase())
     const elmntToView = window.document.getElementsByClassName("main-layout")[0]
     elmntToView.scrollIntoView()
@@ -36,8 +37,7 @@ const IndexPage = () => {
       })
 
     return () => {}
-  }, [status, category, quotes])
-  console.log(quotes)
+  }, [status])
   return (
     <Layout>
       <SEO title="Home" />
