@@ -19,7 +19,7 @@ const Image = () => {
       heroImage: file(relativePath: { eq: "hero_img.png" }) {
         childImageSharp {
           fluid(maxWidth: 1000) {
-            ...GatsbyImageSharpFluid
+            ...GatsbyImageSharpFluid_noBase64
           }
         }
       }
