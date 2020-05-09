@@ -7,6 +7,7 @@
 
 import React from "react"
 import PropTypes from "prop-types"
+import { Link } from "gatsby"
 import { useStaticQuery, graphql } from "gatsby"
 import styled from "styled-components"
 import Header from "./header"
@@ -40,8 +41,16 @@ const Layout = ({ children }) => {
           </FooterMetaDataInfo>
 
           <SocialMedia>
-            <img src={instagramBtnImg} />
-            <img src={twitterBtnImg} />
+            <a href="https://www.instagram.com/relearnquotes/">
+              <div>
+                <img src={instagramBtnImg} />
+              </div>
+            </a>
+            <a href="https://twitter.com/relearnquotes">
+              <div>
+                <img src={twitterBtnImg} />
+              </div>
+            </a>
           </SocialMedia>
         </FooterWrapper>
       </FooterLayout>
@@ -77,11 +86,13 @@ const FooterMetaDataInfo = styled.div`
 const SocialMedia = styled.div`
   display: flex;
   text-transform: uppercase;
-
   font-weight: bold;
-  width: 1.5rem;
-  & img {
-    margin-right: 0.4rem;
+  width: 4.5rem;
+
+  & a {
+    & div {
+      margin-right: 0.4rem;
+    }
   }
 `
 Layout.propTypes = {

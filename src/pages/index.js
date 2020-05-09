@@ -6,6 +6,8 @@ import Layout from "../components/layout"
 import Image from "../components/image"
 import Card from "../components/card"
 import SEO from "../components/seo"
+import "react-loader-spinner/dist/loader/css/react-spinner-loader.css"
+import Loader from "react-loader-spinner"
 import TweetEmbed from "react-tweet-embed"
 
 const IndexPage = () => {
@@ -13,9 +15,14 @@ const IndexPage = () => {
   const [category, setCategory] = useState("FEATURED")
   const [status, setStatus] = useState("loading")
 
+  const handleClick = e => {
+    setStatus("loading")
+    setCategory(e.target.innerText.toUpperCase())
+    const elmntToView = window.document.getElementsByClassName("main-layout")[0]
+    elmntToView.scrollIntoView()
+  }
   useEffect(() => {
     if (status !== "loading") return
-
     axios
       .post(`/.netlify/functions/get-all-quotes-by-category`, { category })
       .then(result => {
@@ -28,10 +35,9 @@ const IndexPage = () => {
         setStatus("loaded")
       })
 
-    return () => {
-      setStatus(false)
-    }
-  }, [status])
+    return () => {}
+  }, [status, category, quotes])
+  console.log(quotes)
   return (
     <Layout>
       <SEO title="Home" />
@@ -56,40 +62,24 @@ const IndexPage = () => {
         <h3 style={{ style: "text" }}>Category:</h3>
 
         <CategoryContainer>
-          <div onClick={e => setCategory(e.target.innerText.toUpperCase())}>
-            Featured
-          </div>
+          <div onClick={e => handleClick(e)}>Featured</div>
 
-          <div onClick={e => setCategory(e.target.innerText.toUpperCase())}>
-            Random
-          </div>
+          <div onClick={e => handleClick(e)}>Random</div>
 
-          <div onClick={e => setCategory(e.target.innerText.toUpperCase())}>
-            Recommended
-          </div>
+          <div onClick={e => handleClick(e)}>Recommended</div>
 
-          <div onClick={e => setCategory(e.target.innerText.toUpperCase())}>
-            Life
-          </div>
+          <div onClick={e => handleClick(e)}>Life</div>
 
-          <div onClick={e => setCategory(e.target.innerText.toUpperCase())}>
-            Dev
-          </div>
+          <div onClick={e => handleClick(e)}>Dev</div>
 
-          <div onClick={e => setCategory(e.target.innerText.toUpperCase())}>
-            Blockchain
-          </div>
+          <div onClick={e => handleClick(e)}>Blockchain</div>
 
-          <div onClick={e => setCategory(e.target.innerText.toUpperCase())}>
-            Startup
-          </div>
+          <div onClick={e => handleClick(e)}>Startup</div>
 
-          <div onClick={e => setCategory(e.target.innerText.toUpperCase())}>
-            Pandemic
-          </div>
+          <div onClick={e => handleClick(e)}>Pandemic</div>
         </CategoryContainer>
       </HeroLayout>
-      <MainLayout>
+      <MainLayout className="main-layout">
         {quotes && quotes.length > 0 ? (
           <MainContainer>
             {quotes.map(quote => {
@@ -113,7 +103,15 @@ const IndexPage = () => {
             })}
           </MainContainer>
         ) : (
-          <p>loading quotes...</p>
+          <MainContainer>
+            <Loader
+              type="ThreeDots"
+              color="#000000"
+              height={20}
+              width={40}
+              timeout={3000}
+            />
+          </MainContainer>
         )}
       </MainLayout>
     </Layout>
@@ -185,6 +183,16 @@ const CategoryContainer = styled.div`
     border: 3px solid #000000;
   }
 
+
+  & div:hover {
+    text-decoration: underline;
+  }
+
+  & div:active {
+    transform: translateY(1px);
+  }
+
+
   @media (max-width: 715px) {
     flex-direction: column;
     & div {
@@ -196,6 +204,7 @@ const CategoryContainer = styled.div`
 const MainContainer = styled.div`
   display: flex;
   margin: 0 auto;
+  justify-content: center;
   max-width: 57rem;
   padding: 0 1.0875rem 1.45rem;
 
