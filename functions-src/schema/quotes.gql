@@ -1,0 +1,12 @@
+type Quote {
+  type: String! # tweet or text
+  content: String! # tweetId for a tweet type quote, otherwise the actual content of a quote
+  author: String! # tweetId for a tweet type quote
+  source: String! # tweetId for a tweet type quote
+  category: String!
+}
+
+type Query {
+  allQuotes: [Quote!]!
+  quoteByCategory(category: String): [Quote!]!
+}

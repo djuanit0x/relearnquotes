@@ -1,5 +1,6 @@
-import React from "react"
+import React, { useEffect, useState } from "react"
 import { Link } from "gatsby"
+import axios from "axios"
 import styled from "styled-components"
 import Layout from "../components/layout"
 import Image from "../components/image"
@@ -7,62 +8,117 @@ import Card from "../components/card"
 import SEO from "../components/seo"
 import TweetEmbed from "react-tweet-embed"
 
-const IndexPage = () => (
-  <Layout>
-    <SEO title="Home" />
-    <HeroLayout>
-      <HeroWrapper>
-        <HeroTitle>
-          <h1>
-            <span>Re</span>think your favs quotes
-          </h1>
-          <p>
-            Quotes are powerful references that you can use to reflect back upon
-            your journey in life. We have collected a dozen recommended and
-            popular quotes for each category. All quotes have been{" "}
-            <span>verified</span> from their original source. Let's learn
-            together!
-          </p>
-        </HeroTitle>
-        <HeroImageWrapper>
-          <Image />
-        </HeroImageWrapper>
-      </HeroWrapper>
-      <h3 style={{ style: "text" }}>Category:</h3>
+const IndexPage = () => {
+  const [quotes, setQuotes] = useState(null)
+  const [category, setCategory] = useState("FEATURED")
+  const [status, setStatus] = useState("loading")
 
-      <CategoryContainer>
-        <div>Featured</div>
+  useEffect(() => {
+    if (status !== "loading") return
 
-        <div>Random</div>
+    axios
+      .post(`/.netlify/functions/get-all-quotes-by-category`, { category })
+      .then(result => {
+        if (result.status !== 200) {
+          console.error("Unable to load the quotes")
+          return
+        }
 
-        <div>Recommended</div>
+        setQuotes(result.data.quotes.data)
+        setStatus("loaded")
+      })
 
-        <div>Life</div>
+    return () => {
+      setStatus(false)
+    }
+  }, [status])
+  return (
+    <Layout>
+      <SEO title="Home" />
+      <HeroLayout>
+        <HeroWrapper>
+          <HeroTitle>
+            <h1>
+              <span>Re</span>think your favs quotes
+            </h1>
+            <p>
+              Quotes are powerful references that you can use to reflect back
+              upon your journey in life. We have collected a dozen recommended
+              and popular quotes for each category. All quotes have been{" "}
+              <span>verified</span> from their original source. Let's learn
+              together!
+            </p>
+          </HeroTitle>
+          <HeroImageWrapper>
+            <Image />
+          </HeroImageWrapper>
+        </HeroWrapper>
+        <h3 style={{ style: "text" }}>Category:</h3>
 
-        <div>Dev</div>
+        <CategoryContainer>
+          <div onClick={e => setCategory(e.target.innerText.toUpperCase())}>
+            Featured
+          </div>
 
-        <div>Blockchain</div>
+          <div onClick={e => setCategory(e.target.innerText.toUpperCase())}>
+            Random
+          </div>
 
-        <div>Startup</div>
+          <div onClick={e => setCategory(e.target.innerText.toUpperCase())}>
+            Recommended
+          </div>
 
-        <div>Pandemic</div>
-      </CategoryContainer>
-    </HeroLayout>
-    <MainLayout>
-      <MainContainer className="main-container">
-        <TweetEmbedWrapper>
-          <TweetEmbed id="1254853868854394881" />
-        </TweetEmbedWrapper>
+          <div onClick={e => setCategory(e.target.innerText.toUpperCase())}>
+            Life
+          </div>
 
-        <Card
-          name="Nassim Taleb"
-          sourceLink="https://www.goodbooks.io/people/nassim-nicholas-taleb"
-          content="“The problem with experts is that they do not know what they do not know”"
-        />
-      </MainContainer>
-    </MainLayout>
-  </Layout>
-)
+          <div onClick={e => setCategory(e.target.innerText.toUpperCase())}>
+            Dev
+          </div>
+
+          <div onClick={e => setCategory(e.target.innerText.toUpperCase())}>
+            Blockchain
+          </div>
+
+          <div onClick={e => setCategory(e.target.innerText.toUpperCase())}>
+            Startup
+          </div>
+
+          <div onClick={e => setCategory(e.target.innerText.toUpperCase())}>
+            Pandemic
+          </div>
+        </CategoryContainer>
+      </HeroLayout>
+      <MainLayout>
+        {quotes && quotes.length > 0 ? (
+          <MainContainer>
+            {quotes.map(quote => {
+              if (quote.type === "tweet") {
+                return (
+                  <TweetEmbedWrapper key={quote._id}>
+                    <TweetEmbed id={quote.content} />
+                  </TweetEmbedWrapper>
+                )
+              } else if (quote.type === "text") {
+                return (
+                  <Card
+                    name={quote.author}
+                    sourceLink={quote.source}
+                    content={quote.content}
+                  />
+                )
+              } else {
+                return ""
+              }
+            })}
+          </MainContainer>
+        ) : (
+          <p>loading quotes...</p>
+        )}
+      </MainLayout>
+    </Layout>
+  )
+}
 
 const HeroLayout = styled.div`
   width: 100%;
