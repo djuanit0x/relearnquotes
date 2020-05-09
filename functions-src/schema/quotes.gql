@@ -4,6 +4,7 @@ type Quote {
   author: String! # tweetId for a tweet type quote
   source: String! # tweetId for a tweet type quote
   isFeature: Boolean!
+  isRecommended: Boolean!
   category: String!
 }
 

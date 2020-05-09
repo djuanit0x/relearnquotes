@@ -11,6 +11,7 @@ query ($category: String!) {
       source
       category
       isFeature
+      isRecommended
     }
  }
 }
