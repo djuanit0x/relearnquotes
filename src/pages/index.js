@@ -49,83 +49,94 @@ const IndexPage = () => {
     return () => {}
   }, [status])
   return (
-    <Layout>
-      <SEO title="Home" />
-      <HeroLayout>
-        <HeroWrapper>
-          <HeroTitle>
-            <h1>
-              <span>Re</span>think your favs quotes
-            </h1>
-            <p>
-              Quotes are powerful references that you can use to reflect back
-              upon your journey in life. We have collected a dozen recommended
-              and popular quotes for each category. All quotes have been{" "}
-              <span>verified</span> from their original source. Let's learn
-              together!
-            </p>
-          </HeroTitle>
-          <HeroImageWrapper>
-            <Image />
-          </HeroImageWrapper>
-        </HeroWrapper>
-        <h3 style={{ style: "text" }}>Category:</h3>
+    <div>
+      {quotes === null ? (
+        <Loading>
+          <Line></Line>
+          <Line></Line>
+          <Line></Line>
+          <Line></Line>
+        </Loading>
+      ) : (
+        <Layout>
+          <SEO title="Home" />
+          <HeroLayout>
+            <HeroWrapper>
+              <HeroTitle>
+                <h1>
+                  <span>Re</span>think your favs quotes
+                </h1>
+                <p>
+                  Quotes are powerful references that you can use to reflect
+                  back upon your journey in life. We have collected a dozen
+                  recommended and popular quotes for each category. All quotes
+                  have been <span>verified</span> from their original source.
+                  Let's learn together!
+                </p>
+              </HeroTitle>
+              <HeroImageWrapper>
+                <Image />
+              </HeroImageWrapper>
+            </HeroWrapper>
+            <h3 style={{ style: "text" }}>Category:</h3>
 
-        <CategoryContainer>
-          <div onClick={e => handleClick(e)}>Featured</div>
+            <CategoryContainer>
+              <div onClick={e => handleClick(e)}>Featured</div>
 
-          <div onClick={e => handleClick(e)}>Funny</div>
+              <div onClick={e => handleClick(e)}>Funny</div>
 
-          <div onClick={e => handleClick(e)}>Recommended</div>
+              <div onClick={e => handleClick(e)}>Recommended</div>
 
-          <div onClick={e => handleClick(e)}>Life</div>
+              <div onClick={e => handleClick(e)}>Life</div>
 
-          <div onClick={e => handleClick(e)}>Dev</div>
+              <div onClick={e => handleClick(e)}>Dev</div>
 
-          <div onClick={e => handleClick(e)}>Blockchain</div>
+              <div onClick={e => handleClick(e)}>Blockchain</div>
 
-          <div onClick={e => handleClick(e)}>Startup</div>
+              <div onClick={e => handleClick(e)}>Startup</div>
 
-          <div onClick={e => handleClick(e)}>Pandemic</div>
-        </CategoryContainer>
-      </HeroLayout>
-      <MainLayout className="main-layout">
-        {quotes && quotes.length > 0 ? (
-          <MainContainer>
-            {quotes.map(quote => {
-              if (quote.type === "tweet") {
-                return (
-                  <TweetEmbedWrapper key={quote._id}>
-                    <TweetEmbed id={quote.content} />
-                  </TweetEmbedWrapper>
-                )
-              } else if (quote.type === "text") {
-                return (
-                  <Card
-                    key={quote._id}
-                    name={quote.author}
-                    sourceLink={quote.source}
-                    content={quote.content}
-                  />
-                )
-              } else {
-                return ""
-              }
-            })}
-          </MainContainer>
-        ) : (
-          <MainContainer>
-            <Loader
-              type="ThreeDots"
-              color="#000000"
-              height={20}
-              width={40}
-              timeout={3000}
-            />
-          </MainContainer>
-        )}
-      </MainLayout>
-    </Layout>
+              <div onClick={e => handleClick(e)}>Pandemic</div>
+            </CategoryContainer>
+          </HeroLayout>
+          <MainLayout className="main-layout">
+            {quotes && quotes.length > 0 ? (
+              <MainContainer>
+                {quotes.map(quote => {
+                  if (quote.type === "tweet") {
+                    return (
+                      <TweetEmbedWrapper key={quote._id}>
+                        <TweetEmbed id={quote.content} />
+                      </TweetEmbedWrapper>
+                    )
+                  } else if (quote.type === "text") {
+                    return (
+                      <Card
+                        key={quote._id}
+                        name={quote.author}
+                        sourceLink={quote.source}
+                        content={quote.content}
+                      />
+                    )
+                  } else {
+                    return ""
+                  }
+                })}
+              </MainContainer>
+            ) : (
+              <MainContainer>
+                <Loader
+                  type="ThreeDots"
+                  color="#000000"
+                  height={20}
+                  width={40}
+                  timeout={3000}
+                />
+              </MainContainer>
+            )}
+          </MainLayout>
+        </Layout>
+      )}
+    </div>
   )
 }
 
@@ -232,6 +243,50 @@ const MainContainer = styled.div`
 const TweetEmbedWrapper = styled.div`
   margin: 1rem;
   width: 25rem;
+`
+
+const Loading = styled.div`
+  position: absolute;
+  top: 50%;
+  left: 48%;
+`
+
+const Line = styled.div`
+  animation: expand 1s ease-in-out infinite;
+  border-radius: 10px;
+  display: inline-block;
+  transform-origin: center center;
+  margin: 0 3px;
+  width: 1px;
+  height: 25px;
+
+  &:nth-child(1) {
+    background: #27ae60;
+  }
+
+  &:nth-child(2) {
+    animation-delay: 180ms;
+    background: #f1c40f;
+  }
+
+  &:nth-child(3) {
+    animation-delay: 360ms;
+    background: #e67e22;
+  }
+
+  &:nth-child(3) {
+    animation-delay: 540ms;
+    background: #2980b9;
+  }
+
+  @keyframes expand {
+    0% {
+      transform: scale(1);
+    }
+    25% {
+      transform: scale(2);
+    }
+  }
 `
 
 export default IndexPage
