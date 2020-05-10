@@ -36,7 +36,6 @@ const IndexPage = () => {
     }
 
     axios.post(`.netlify/functions/${QUERY_URL}`, { category }).then(result => {
-      console.log(result)
       if (result.status !== 200) {
         console.error("Unable to load the quotes")
         return
@@ -103,6 +102,7 @@ const IndexPage = () => {
               } else if (quote.type === "text") {
                 return (
                   <Card
+                    id={quote._id}
                     name={quote.author}
                     sourceLink={quote.source}
                     content={quote.content}
