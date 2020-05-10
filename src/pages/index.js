@@ -102,7 +102,7 @@ const IndexPage = () => {
               } else if (quote.type === "text") {
                 return (
                   <Card
-                    id={quote._id}
+                    key={quote._id}
                     name={quote.author}
                     sourceLink={quote.source}
                     content={quote.content}
@@ -215,8 +215,9 @@ const CategoryContainer = styled.div`
 const MainContainer = styled.div`
   display: flex;
   margin: 0 auto;
+  flex-wrap: wrap;
   justify-content: center;
-  max-width: 57rem;
+  max-width: 68rem;
   padding: 0 1.0875rem 1.45rem;
 
   @media (max-width: 715px) {
