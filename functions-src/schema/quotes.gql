@@ -3,7 +3,7 @@ type Quote {
   content: String! # tweetId for a tweet type quote, otherwise the actual content of a quote
   author: String! # tweetId for a tweet type quote
   source: String! # tweetId for a tweet type quote
-  isFeature: Boolean!
+  isFeatured: Boolean!
   isRecommended: Boolean!
   category: String!
 }
@@ -11,4 +11,6 @@ type Quote {
 type Query {
   allQuotes: [Quote!]!
   quoteByCategory(category: String): [Quote!]!
+  quoteByFeatured(isFeatured: Boolean) : [Quote!]!
+  quoteByRecommended(isRecommended: Boolean) : [Quote!]!
 }

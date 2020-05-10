@@ -10,7 +10,7 @@ query ($category: String!) {
       author
       source
       category
-      isFeature
+      isFeatured
       isRecommended
     }
  }

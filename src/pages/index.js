@@ -24,18 +24,28 @@ const IndexPage = () => {
   }
   useEffect(() => {
     if (status !== "loading") return
-    axios
-      .post(`.netlify/functions/get-all-quotes-by-category`, { category })
-      .then(result => {
-        if (result.status !== 200) {
-          console.error("Unable to load the quotes")
-          return
-        }
-        if (result.data) {
-          setQuotes(result.data.quotes.data)
-        }
-        setStatus("loaded")
-      })
+
+    let QUERY_URL = ""
+
+    if (category === "FEATURED") {
+      QUERY_URL = "get-all-featured-quotes"
+    } else if (category === "RECOMMENDED") {
+      QUERY_URL = "get-all-recommended-quotes"
+    } else {
+      QUERY_URL = "get-all-quotes-by-category"
+    }
+
+    axios.post(`.netlify/functions/${QUERY_URL}`, { category }).then(result => {
+      console.log(result)
+      if (result.status !== 200) {
+        console.error("Unable to load the quotes")
+        return
+      }
+      if (result.data) {
+        setQuotes(result.data.quotes.data)
+      }
+      setStatus("loaded")
+    })
 
     return () => {}
   }, [status])
