@@ -98,6 +98,18 @@ const IndexPage = () => {
               </HeroTitle>
               <HeroImageWrapper>
                 <Image />
+                <div style={{ marginLeft: "2.8rem", marginTop: "3rem" }}>
+                  <a
+                    href="https://www.producthunt.com/posts/relearn-quotes?utm_source=badge-featured&utm_medium=badge&utm_souce=badge-relearn-quotes"
+                    target="_blank"
+                  >
+                    <img
+                      src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=199146&theme=light"
+                      alt="Relearn Quotes - A list of verified quotes to help people discover the truth | Product Hunt Embed"
+                      style={{ width: "15.625rem", height: "3.375rem" }}
+                    />
+                  </a>
+                </div>
               </HeroImageWrapper>
             </HeroWrapper>
             <h3 style={{ style: "text" }}>Category:</h3>
