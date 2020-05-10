@@ -99,6 +99,7 @@ const IndexPage = () => {
             </CategoryContainer>
           </HeroLayout>
           <MainLayout className="main-layout">
+            <TotalQuotesText>{quotes.length} quotes are shown</TotalQuotesText>
             {quotes && quotes.length > 0 ? (
               <MainContainer>
                 {quotes.map(quote => {
@@ -223,6 +224,17 @@ const CategoryContainer = styled.div`
     }
   }
 `
+
+const TotalQuotesText = styled.div`
+  color: #000000;
+  display: flex;
+  font-size: 0.875rem;
+  font-weight: bold;
+  justify-content: center;
+  padding: 1rem 0rem 0rem 1.0875rem;
+  text-decoration-line: underline;
+`
+
 const MainContainer = styled.div`
   display: flex;
   margin: 0 auto;
