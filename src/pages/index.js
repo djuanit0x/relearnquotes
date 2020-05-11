@@ -117,7 +117,7 @@ const IndexPage = () => {
             <CategoryContainer>
               <div onClick={e => handleClick(e)}>Featured</div>
 
-              <div onClick={e => handleClick(e)}>Funny</div>
+              <div onClick={e => handleClick(e)}>Meme</div>
 
               <div onClick={e => handleClick(e)}>Recommended</div>
 
